@@ -1,0 +1,17 @@
+const assert = require('node:assert/strict');
+const {calculateQuote,discountRate} = require('../js/data.js');
+assert.equal(discountRate(1),0);
+assert.equal(discountRate(2),0.05);
+assert.equal(discountRate(3),0.10);
+assert.equal(discountRate(4),0.15);
+assert.equal(discountRate(8),0.15);
+assert.deepEqual(calculateQuote({}),{count:0,subtotal:0,rate:0,discount:0,vat:0,total:0});
+const q=calculateQuote({'ultimate-gamer':1,'racing-simulator':1});
+assert.equal(q.subtotal,2150);
+assert.equal(q.discount,107.5);
+assert.equal(q.vat,306.38);
+assert.equal(q.total,2348.88);
+assert.equal(calculateQuote({'ultimate-gamer':2,'vip-gaming':1}).rate,0.10);
+assert.equal(calculateQuote({'ultimate-gamer':4}).rate,0.15);
+assert.equal(calculateQuote({'ultimate-gamer':-10}).total,0);
+console.log('All calculator tests passed. Sample total: R2,348.88');
